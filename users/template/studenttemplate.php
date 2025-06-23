@@ -1,6 +1,6 @@
 <?php include '../../database/database.php'; ?>
 <?php include '../title/title.php'; ?>
-<?php include('../layouts/header.php'); 
+<?php include '../layouts/header.php'; 
 // Check if user is logged in and retrieve their user type
 $is_logged_in = isset($_SESSION['userdata']['user_type']) ? $_SESSION['userdata']['user_type'] : null;
 
