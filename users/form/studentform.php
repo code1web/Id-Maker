@@ -17,10 +17,10 @@ include '../../database/database.php';
 <button class="btn btn-success m-2" id="multiple-data">Multiple Form</button>
 
 <!-- Container -->
-<div class="container mt-5 mb-5 w-50 border">
+<div class="container mt-5 mb-5 w-50">
     <div class="row">
         <!-- Single Form -->
-        <div class="student-form" style="display:none;">
+        <div class="student-form border" style="display:none;">
             <h3 class="text-center text-info">Single Student Entry</h3>
             <form action="" method="POST" enctype="multipart/form-data">
                 <!-- School Name -->
@@ -63,7 +63,7 @@ include '../../database/database.php';
         </div>
 
         <!-- CSV Upload Form -->
-        <div class="multiple-data" style="display:none;">
+        <div class="multiple-data border" style="display:none;">
             <hr>
             <h4 class="text-center">Upload Multiple Students (CSV)</h4>
             <form action="" method="POST" enctype="multipart/form-data">

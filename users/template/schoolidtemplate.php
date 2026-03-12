@@ -3,48 +3,84 @@
 <?php include('../layouts/header.php'); 
 $is_logged_in = $_SESSION['userdata']['user_type'];
 if (!$is_logged_in == 'admin') {
-    header('Location: /Idmaker/users/login.php'); // Adjust the path to your login page
-    exit; // Stop further execution
+    header('Location: /Idmaker/users/login.php'); 
+    exit;
 } elseif($is_logged_in == 'user') {
-    header('Location: /Idmaker/users/login.php'); // Adjust the path to your login page
+    header('Location: /Idmaker/users/login.php'); 
     exit;
 }
 ?>
 <style>
-    .id-card {
-        width: 350px;
-        border: 1px solid #ccc;
-        padding: 20px;
-        text-align: center;
-        font-family: Arial, sans-serif;
-        margin: 10px;
-        display: inline-block;
-        vertical-align: top;
-    }
-    .id-card img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-    }
-    .id-card h3, .id-card p {
-        margin: 10px 0;
-    }
+  .id-card {
+    width: 300px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: auto;
+    border: 2px solid #2c3e50;
+  }
 
-    .modal-content {
-        background: transparent !important;
-        border: none;
-    }
+  .id-header {
+    background: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 15px 10px;
+    position: relative;
+  }
+
+  .school-logo img {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+  }
+
+  .school-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .id-photo {
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+    background: #f4f6f8;
+  }
+
+  .id-photo img {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 3px solid #2c3e50;
+  }
+
+  .id-details {
+    padding: 15px;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .id-details h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #2c3e50;
+  }
 </style>
 <?php
 $sql = "SELECT * FROM student_data";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
-    echo '<table class="table table-striped container mt-4 mb-4">
+    echo '<table class="table table-striped container mt-4 mb-4 border bordered-light">
             <tr>
-                <th>ID</th>
-                <th>Student Name</th>
-                <th>Action</th>
+                <th class="text-light">ID</th>
+                <th class="text-light">Student Name</th>
+                <th class="text-light">Action</th>
             </tr>';
     while ($row = mysqli_fetch_assoc($result)) {
         $school_name = $row['schoolname'];
@@ -56,38 +92,22 @@ if (mysqli_num_rows($result) > 0) {
         $image = '../../assets/uploads/' . $row['Student_image'];
 ?>
     <tr>
-        <td><?php echo $student_id; ?></td>
-        <td><?php echo $student_name; ?></td>
-        <td><button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#exampleModal<?php print_r($row['Id']);?>">View</button>
-            <form method="POST" action="download.php" style="display:inline;">
-                <input type="hidden" name="id" value="<?php echo $student_id; ?>">
-                <input type="hidden" name="name" value="<?php echo $student_name; ?>">
-                <input type="hidden" name="class" value="<?php echo $class; ?>">
-                <input type="hidden" name="dob" value="<?php echo $dob; ?>">
-                <input type="hidden" name="address" value="<?php echo $address; ?>">
-                <input type="hidden" name="school" value="<?php echo $school_name; ?>">
-                <input type="hidden" name="image" value="<?php echo $image; ?>">
-                <button type="submit" class="btn btn-primary ms-3">Download</button>
-            </form>
+        <td class="text-light"><?php echo $student_id; ?></td>
+        <td class="text-light"><?php echo $student_name; ?></td>
+        <td class="text-light">
+          <form method="POST" action="view_idcard.php" target="_blank" style="display:inline;">
+              <input type="hidden" name="id" value="<?php echo $student_id; ?>">
+              <input type="hidden" name="name" value="<?php echo $student_name; ?>">
+              <input type="hidden" name="class" value="<?php echo $class; ?>">
+              <input type="hidden" name="dob" value="<?php echo $dob; ?>">
+              <input type="hidden" name="address" value="<?php echo $address; ?>">
+              <input type="hidden" name="school" value="<?php echo $school_name; ?>">
+              <input type="hidden" name="image" value="<?php echo $image; ?>">
+              <button type="submit" class="btn btn-success">View</button>
+          </form>
         </td>
     </tr>
-<div class="modal fade" id="exampleModal<?php print_r($row['Id']);?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-body mx-auto">
-            <div class="id-card bg-light">
-            <div class="school-name"><?php echo $school_name; ?></div>
-                <img src="<?php echo $image; ?>" alt="Student Photo">
-                <h3><?php echo $student_name; ?></h3>
-                <p>ID: <?php echo $student_id; ?></p>
-                <p>Class: <?php echo $class; ?></p>
-                <p>Date of Birth: <?php echo $dob; ?></p>
-                <p>Address: <?php echo $address; ?></p>
-            </div>
-        </div>
-    </div>
-  </div>
-</div>
+
 <?php
     }
     echo'</table>';

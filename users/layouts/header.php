@@ -13,11 +13,40 @@ $base_path = '/Idmaker/';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?php echo $base_path; ?>assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo $base_path; ?>assets/css/style.css">
-    <link rel="stylesheet" href="<?php echo $base_path; ?>assets/css/sidebar.css">
+    <!-- <link rel="stylesheet" href="<?php //echo $base_path; ?>assets/css/style.css"> -->
 
+    <link rel="stylesheet" href="<?php echo $base_path; ?>assets/css/sidebar.css">
     <script src="<?php echo $base_path; ?>assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo $base_path; ?>assets/js/sidebar.js"></script>
+
+  <style>
+    :root {
+        --background: #1a1a2e;
+        --color: #ffffff;
+        --primary-color: #0f3460;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "poppins";
+        background: var(--background);
+        color: var(--color);
+        letter-spacing: 1px;
+        transition: background 0.2s ease;
+        -webkit-transition: background 0.2s ease;
+        -moz-transition: background 0.2s ease;
+        -ms-transition: background 0.2s ease;
+        -o-transition: background 0.2s ease;
+    }
+  </style>
   </head>
   <body id="body-pd">
     <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark">
